@@ -18,6 +18,7 @@ var is_game_over: bool = false
 var is_cleared: bool = false
 
 var bg_scroll_offset: float = 0.0
+var _custom_font: Font = preload("res://assets/fonts/default_font.tres")
 
 # Preload obstacle scenes
 var scene_map = {
@@ -279,4 +280,4 @@ func _draw() -> void:
 		var goal_y = float(dist_remaining / 35.0) * 1100.0
 		if goal_y >= 0 and goal_y <= 1280:
 			draw_line(Vector2(80, goal_y), Vector2(640, goal_y), Color("#F1C40F"), 8.0) # 黄金
-			draw_string(ThemeDB.fallback_font, Vector2(360, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 28, Color("#F1C40F"))
+			draw_string(_custom_font, Vector2(360, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 28, Color("#F1C40F"))

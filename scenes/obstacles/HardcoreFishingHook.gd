@@ -4,6 +4,7 @@ var is_struggling: bool = false
 var target_player: Area2D = null
 var struggle_progress: float = 0.0
 var struggle_required: float = 100.0
+var _custom_font: Font = preload("res://assets/fonts/default_font.tres")
 
 func _ready() -> void:
 	obstacle_type = "hook"
@@ -74,4 +75,4 @@ func _draw() -> void:
 		# ゲージ中身（燃えるイエローレッド）
 		draw_rect(Rect2(-40, -40, 80 * ratio, 8), Color("#E74C3C").lerp(Color("#F1C40F"), ratio))
 		# 連打表示テキスト
-		draw_string(ThemeDB.fallback_font, Vector2(-40, -50), "ボタン連打で脱出!!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 12, Color.YELLOW)
+		draw_string(_custom_font, Vector2(-40, -50), "ボタン連打で脱出!!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 12, Color.YELLOW)

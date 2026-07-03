@@ -11,6 +11,7 @@ const LANE_X = {
 	1: 530.0
 }
 const BASE_Y = 1000.0
+var _custom_font: Font = preload("res://assets/fonts/default_font.tres")
 
 var current_lane: int = 0
 var target_x: float = 360.0
@@ -291,4 +292,4 @@ func _draw() -> void:
 		draw_line(Vector2(-12, -36), Vector2(12, -36), Color("f1c40f"), 3.0)
 		draw_line(Vector2(-6, -42), Vector2(6, -30), Color("f1c40f"), 3.0)
 	if confusion_timer > 0.0:
-		draw_string(ThemeDB.fallback_font, Vector2(-45, -45), "❓左右反転❓", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 14, Color("#9B59B6"))
+		draw_string(_custom_font, Vector2(-45, -45), "❓左右反転❓", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 14, Color("#9B59B6"))

@@ -7,6 +7,7 @@ var banana_y: float = 0.0
 var banana_speed_x: float = 400.0
 var banana_speed_y: float = 250.0
 var banana_rotation: float = 0.0
+var _custom_font: Font = preload("res://assets/fonts/default_font.tres")
 
 func _ready() -> void:
 	obstacle_type = "monkey_rock"
@@ -48,7 +49,7 @@ func _draw() -> void:
 		# Flashing alert sign
 		if int(alert_timer * 10.0) % 2 == 0:
 			var dir = 1.0 if is_from_left else -1.0
-			draw_string(ThemeDB.fallback_font, Vector2(dir * 35.0, -5.0), "⚠️ 落石注意!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 18, Color.YELLOW)
+			draw_string(_custom_font, Vector2(dir * 35.0, -5.0), "⚠️ 落石注意!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 18, Color.YELLOW)
 			draw_line(Vector2(dir * 25.0, 0), Vector2(dir * 60.0, 0), Color.RED, 4.0)
 	else:
 		# Draw spinning banana at (banana_x, banana_y)

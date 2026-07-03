@@ -7,6 +7,7 @@ var is_thrown: bool = false
 var throw_dual: bool = false
 var salmon_area_1: Area2D = null
 var salmon_area_2: Area2D = null
+var _custom_font: Font = preload("res://assets/fonts/default_font.tres")
 
 func _ready() -> void:
 	obstacle_type = "bear"
@@ -86,7 +87,7 @@ func _draw() -> void:
 	if throw_delay > 0.0:
 		# Flashing alert sign and danger line
 		if int(throw_delay * 10.0) % 2 == 0:
-			draw_string(ThemeDB.fallback_font, Vector2(-90.0, -32.0), "⚠️ 凶暴クマ・高速サケ飛来注意!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 18, Color.YELLOW)
+			draw_string(_custom_font, Vector2(-90.0, -32.0), "⚠️ 凶暴クマ・高速サケ飛来注意!", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 18, Color.YELLOW)
 			if throw_dual:
 				draw_line(Vector2(-200.0, 0), Vector2(200.0, 0), Color.RED, 4.0)
 			else:
