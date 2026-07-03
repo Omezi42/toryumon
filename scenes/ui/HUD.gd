@@ -113,7 +113,7 @@ func _process(_delta: float) -> void:
 	
 	if prog >= 50.0 and not notified_halfway:
 		notified_halfway = true
-		show_banner("🌊 中間地点突破！ラストスパート！ 🌊", Color("#00E5FF"))
+		show_banner("🌊 中間地点突破！一気に登り切れ！ 🌊", Color("#00E5FF"))
 		
 	if $RightPanel/ScoreLabel.has_method("update_juicy_text"):
 		$RightPanel/ScoreLabel.update_juicy_text("SCORE: %d" % controller.score, controller.score)
@@ -126,26 +126,25 @@ func _process(_delta: float) -> void:
 		$LeftPanel/StatusLabel.text = "⚠️ 息切れ中! (回復待機)"
 		$LeftPanel/StatusLabel.modulate = Color.RED
 	elif player.is_dashing:
-		$LeftPanel/StatusLabel.text = "💨 無敵ダッシュ中! (残り %.1f秒)" % player.dash_timer
-		$LeftPanel/StatusLabel.modulate = Color.CYAN
-	elif player.dash_used:
-		$LeftPanel/StatusLabel.text = " 通常泳ぎ (ダッシュ使用済み)"
+		$LeftPanel/StatusLabel.text = "⚠️ 疲労困憊！ (スタミナ回復待ち)"
+	elif player.dash_timer > 0.0:
+		$LeftPanel/StatusLabel.text = "💨 登竜ダッシュ中！ (無敵 残り %.1f秒)" % player.dash_timer
+	elif player.has_dashed:
+		$LeftPanel/StatusLabel.text = " 通常状態 (ダッシュ使用済)"
 		$LeftPanel/StatusLabel.modulate = Color("7f8c8d")
 	else:
-		$LeftPanel/StatusLabel.text = " 通常泳ぎ (ダッシュ使用可)"
+		$LeftPanel/StatusLabel.text = " 通常状態 (ダッシュ使用可)"
 		$LeftPanel/StatusLabel.modulate = Color.WHITE
 		
 	if has_node("DashButton"):
-		if player.is_dashing:
-			$DashButton.text = "💨 無敵DASH中!\n(残り %.1f秒)" % player.dash_timer
-			$DashButton.disabled = false
+		if player.dash_timer > 0.0:
+			$DashButton.text = "💨 登竜ダッシュ中！\n(無敵 残り %.1f秒)" % player.dash_timer
 			$DashButton.modulate = Color("00ffff")
-		elif player.dash_used:
-			$DashButton.text = "💨 DASH 使用済み\n(1コース1回限定)"
-			$DashButton.disabled = true
+		elif player.has_dashed:
+			$DashButton.text = "💨 ダッシュ使用済\n(再使用不可)"
 			$DashButton.modulate = Color("556677")
 		else:
-			$DashButton.text = "💨 無敵DASH発動\n(3秒間/1回限定)"
+			$DashButton.text = "💨 登竜ダッシュ発動\n(3秒間無敵/1回限定)"
 			$DashButton.disabled = false
 			$DashButton.modulate = Color.WHITE
 		

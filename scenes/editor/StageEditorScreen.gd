@@ -3,8 +3,8 @@ extends Control
 var obstacles: Array = []
 var selected_type: String = "rock"
 var selected_lane: int = 0
-var stage_title: String = "マイスペシャル滝"
-var author_name: String = "コイ職人"
+var stage_title: String = "創作・龍門の滝"
+var author_name: String = "名無しのコイ"
 var target_time: float = 25.0
 var stage_length: float = 300.0
 

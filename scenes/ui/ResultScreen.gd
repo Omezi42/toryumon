@@ -45,7 +45,7 @@ func _setup_result_display() -> void:
 		$StageNameLabel.modulate = Color("#E74C3C")
 		$TimeLabel.text = "結果: スタミナ切れ / タイムオーバー"
 		$ScoreLabel.text = "獲得スコア: %d PTS" % GameManager.last_score
-		$RankLabel.text = "評価: 挑戦失敗 (ダッシュと息切れを見極めろ!)"
+		$RankLabel.text = "評価: 無念 (ダッシュの使い所とスタミナ管理を見極めよ！)"
 		$RankLabel.add_theme_font_size_override("font_size", 26)
 		$VBox/NextButton.visible = false
 		if has_node("ConfettiParticles"):
@@ -116,10 +116,10 @@ func _on_share_pressed() -> void:
 	var stage_name = "STAGE %d" % GameManager.current_stage_id
 	var text = ""
 	if GameManager.is_stage_failed:
-		text = "🌊 激流アクション『登竜門！爆走コイキング』\n%s で無念のタイムアップ！ 🐉\n次はスタミナ管理と見切りで絶対龍になる！\n#コイの滝登り #GodotEngine https://unityroom.com" % stage_name
+		text = "🌊 激流アクション『登竜門！爆走コイキング』\n%s で無念のタイムアップ！ 🐉\n次こそは激流を制し、龍へと昇る！\n#コイの滝登り #GodotEngine https://unityroom.com" % stage_name
 	else:
 		var time_str = "%05.2f" % GameManager.last_clear_time
-		text = "🌊 激流アクション『登竜門！爆走コイキング』\n%s をクリア！ 🐉\nクリアタイム：%s秒\n龍門を突き破る高速滝登りアクション！\n#コイの滝登り #GodotEngine https://unityroom.com" % [stage_name, time_str]
+		text = "🌊 激流アクション『登竜門！爆走コイキング』\n%s をクリア！ 🐉\nクリアタイム：%s秒\n激流を駆け上がる、魂のコイ登りアクション！\n#コイの滝登り #GodotEngine https://unityroom.com" % [stage_name, time_str]
 	var encoded = text.uri_encode()
 	var url = "https://twitter.com/intent/tweet?text=" + encoded
 	OS.shell_open(url)

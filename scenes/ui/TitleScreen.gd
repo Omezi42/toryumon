@@ -100,17 +100,57 @@ func _process(delta: float) -> void:
 
 # レイヤー3：緋鯉描画
 func draw_koi(canvas: CanvasItem) -> void:
-	if koi_texture:
-		canvas.draw_set_transform(koi_pos, koi_angle + PI/2.0, Vector2(1.2, 1.2))
-		canvas.draw_texture(koi_texture, -koi_texture.get_size() / 2.0)
-		canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	else:
-		# 代替の美麗な緋鯉描画
-		canvas.draw_set_transform(koi_pos, koi_angle, Vector2.ONE)
-		canvas.draw_circle(Vector2.ZERO, 22.0, Color("#FCFCFC")) # 白練
-		canvas.draw_circle(Vector2(6, -4), 14.0, Color("#D13438")) # 真朱の模様
-		canvas.draw_circle(Vector2(14, 0), 8.0, Color("#FCFCFC")) # 頭
-		canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	canvas.draw_set_transform(koi_pos, koi_angle + PI/2.0, Vector2(1.2, 1.2))
+	
+	var tail_swing = sin(anim_time * 12.0) * 14.0
+	var outline_color = Color("2c3e50") # 和モダン浮世絵輪郭線
+	var red_color = Color("e74c3c")
+	
+	# 尾ひれ（ポリゴン＋輪郭）
+	var tail_pts = PackedVector2Array([
+		Vector2(tail_swing * 0.4, 18.0),
+		Vector2(tail_swing - 14.0, 46.0),
+		Vector2(tail_swing + 14.0, 46.0)
+	])
+	canvas.draw_colored_polygon(tail_pts, red_color)
+	var tail_outline = tail_pts
+	tail_outline.append(tail_pts[0])
+	canvas.draw_polyline(tail_outline, outline_color, 3.0, true)
+	
+	# 胴体（白ベースの楕円調ポリゴン）
+	var body_pts = PackedVector2Array([
+		Vector2(0, -28), Vector2(16, -10), Vector2(16, 12),
+		Vector2(0, 24), Vector2(-16, 12), Vector2(-16, -10)
+	])
+	canvas.draw_colored_polygon(body_pts, Color.WHITE)
+	
+	# 緋鯉の赤い模様（フラットベタ塗り）
+	var pattern_pts = PackedVector2Array([
+		Vector2(-14, -12), Vector2(14, -12), Vector2(12, 6), Vector2(-12, 6)
+	])
+	canvas.draw_colored_polygon(pattern_pts, red_color)
+	canvas.draw_circle(Vector2(0, -20), 7.0, red_color)
+	
+	# 胸ひれ（左右）
+	var left_fin = PackedVector2Array([Vector2(-14, -4), Vector2(-30, 6), Vector2(-14, 12)])
+	var right_fin = PackedVector2Array([Vector2(14, -4), Vector2(30, 6), Vector2(14, 12)])
+	canvas.draw_colored_polygon(left_fin, Color.WHITE)
+	canvas.draw_colored_polygon(right_fin, Color.WHITE)
+	var l_fin_out = left_fin; l_fin_out.append(left_fin[0])
+	var r_fin_out = right_fin; r_fin_out.append(right_fin[0])
+	canvas.draw_polyline(l_fin_out, outline_color, 2.5, true)
+	canvas.draw_polyline(r_fin_out, outline_color, 2.5, true)
+	
+	# 胴体の外枠（浮世絵風輪郭線）
+	var body_outline = body_pts
+	body_outline.append(body_pts[0])
+	canvas.draw_polyline(body_outline, outline_color, 3.5, true)
+	
+	# 鯉の目
+	canvas.draw_circle(Vector2(-6, -20), 3.0, outline_color)
+	canvas.draw_circle(Vector2(6, -20), 3.0, outline_color)
+	
+	canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 # 画面遷移：「滝登りフェード」
 func _on_start_pressed() -> void:

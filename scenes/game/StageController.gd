@@ -221,7 +221,7 @@ func _on_stage_failed() -> void:
 
 func _show_fast_retry_hud() -> void:
 	var retry_label = Label.new()
-	retry_label.text = "💥 衝突大破!! 💀\n\n画面タップ / [SPACE] で\n爆速1秒リトライ"
+	retry_label.text = "無念…！激流に沈む 💀\n\n画面タップ / [SPACE] で\n即座に再挑戦"
 	retry_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	retry_label.add_theme_font_size_override("font_size", 36)
 	retry_label.add_theme_color_override("font_color", Color("#E74C3C"))
