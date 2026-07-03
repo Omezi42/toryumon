@@ -1,0 +1,21 @@
+{
+	"title": "登竜門",
+	"length": 450.0,
+	"target_time": 32.0,
+	"obstacles": [
+		{"type": "rapids", "lane": 0, "dist": 40.0},
+		{"type": "rapids", "lane": -1, "dist": 40.0},
+		{"type": "orb", "lane": 1, "dist": 60.0},
+		{"type": "monkey", "lane": 1, "dist": 90.0},
+		{"type": "salmon", "lane": 0, "dist": 130.0},
+		{"type": "hook", "lane": -1, "dist": 165.0},
+		{"type": "ufo", "lane": 1, "dist": 200.0},
+		{"type": "orb", "lane": 0, "dist": 230.0},
+		{"type": "rapids", "lane": 1, "dist": 265.0},
+		{"type": "monkey", "lane": -1, "dist": 300.0},
+		{"type": "salmon", "lane": 1, "dist": 335.0},
+		{"type": "hook", "lane": 0, "dist": 370.0},
+		{"type": "orb", "lane": 0, "dist": 395.0},
+		{"type": "updraft", "lane": 0, "dist": 415.0}
+	]
+}

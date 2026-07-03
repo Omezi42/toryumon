@@ -1,0 +1,15 @@
+{
+	"title": "サケ飛び交う急流",
+	"length": 340.0,
+	"target_time": 26.0,
+	"obstacles": [
+		{"type": "salmon", "lane": 0, "dist": 45.0},
+		{"type": "rock", "lane": -1, "dist": 85.0},
+		{"type": "salmon", "lane": 0, "dist": 125.0},
+		{"type": "rapids", "lane": 1, "dist": 150.0},
+		{"type": "orb", "lane": 0, "dist": 180.0},
+		{"type": "salmon", "lane": 1, "dist": 220.0},
+		{"type": "updraft", "lane": -1, "dist": 250.0},
+		{"type": "rock", "lane": 0, "dist": 290.0}
+	]
+}

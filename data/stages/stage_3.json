@@ -1,0 +1,15 @@
+{
+	"title": "落石注意の崖",
+	"length": 340.0,
+	"target_time": 26.0,
+	"obstacles": [
+		{"type": "monkey", "lane": -1, "dist": 50.0},
+		{"type": "rock", "lane": 0, "dist": 80.0},
+		{"type": "monkey", "lane": 1, "dist": 110.0},
+		{"type": "orb", "lane": -1, "dist": 140.0},
+		{"type": "monkey", "lane": -1, "dist": 175.0},
+		{"type": "breakable", "lane": 0, "dist": 210.0},
+		{"type": "monkey", "lane": 1, "dist": 250.0},
+		{"type": "rock", "lane": -1, "dist": 290.0}
+	]
+}

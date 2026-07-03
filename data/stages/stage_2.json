@@ -1,0 +1,16 @@
+{
+	"title": "逆風と急流",
+	"length": 300.0,
+	"target_time": 22.0,
+	"obstacles": [
+		{"type": "rapids", "lane": 0, "dist": 40.0},
+		{"type": "updraft", "lane": 1, "dist": 50.0},
+		{"type": "rock", "lane": 1, "dist": 90.0},
+		{"type": "rapids", "lane": -1, "dist": 120.0},
+		{"type": "updraft", "lane": 0, "dist": 140.0},
+		{"type": "orb", "lane": 0, "dist": 170.0},
+		{"type": "rock", "lane": 0, "dist": 210.0},
+		{"type": "updraft", "lane": -1, "dist": 230.0},
+		{"type": "breakable", "lane": -1, "dist": 260.0}
+	]
+}

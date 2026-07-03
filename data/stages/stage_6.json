@@ -1,0 +1,15 @@
+{
+	"title": "未知との遭遇",
+	"length": 360.0,
+	"target_time": 28.0,
+	"obstacles": [
+		{"type": "ufo", "lane": 0, "dist": 55.0},
+		{"type": "rock", "lane": 1, "dist": 90.0},
+		{"type": "ufo", "lane": -1, "dist": 135.0},
+		{"type": "orb", "lane": 0, "dist": 170.0},
+		{"type": "ufo", "lane": 1, "dist": 210.0},
+		{"type": "updraft", "lane": 0, "dist": 250.0},
+		{"type": "rock", "lane": -1, "dist": 290.0},
+		{"type": "ufo", "lane": 0, "dist": 320.0}
+	]
+}

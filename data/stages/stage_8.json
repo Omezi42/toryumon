@@ -1,0 +1,17 @@
+{
+	"title": "クマと釣り針の迷宮",
+	"length": 390.0,
+	"target_time": 30.0,
+	"obstacles": [
+		{"type": "salmon", "lane": 0, "dist": 50.0},
+		{"type": "hook", "lane": -1, "dist": 80.0},
+		{"type": "hook", "lane": 1, "dist": 80.0},
+		{"type": "salmon", "lane": -1, "dist": 130.0},
+		{"type": "hook", "lane": 0, "dist": 165.0},
+		{"type": "orb", "lane": 1, "dist": 200.0},
+		{"type": "salmon", "lane": 1, "dist": 240.0},
+		{"type": "hook", "lane": -1, "dist": 275.0},
+		{"type": "breakable", "lane": 0, "dist": 315.0},
+		{"type": "hook", "lane": 1, "dist": 350.0}
+	]
+}

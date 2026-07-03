@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://chud0001"]
+
+[ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="LeftPanel" type="Panel" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 410.0
+offset_bottom = 260.0
+
+[node name="TitleLabel" type="Label" parent="LeftPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 375.0
+offset_bottom = 45.0
+text = "スタミナ (呼吸) ゲージ"
+
+[node name="StaminaBar" type="ProgressBar" parent="LeftPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 50.0
+offset_right = 375.0
+offset_bottom = 80.0
+value = 100.0
+
+[node name="StatusLabel" type="Label" parent="LeftPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 95.0
+offset_right = 375.0
+offset_bottom = 135.0
+text = " 通常泳ぎ"
+
+[node name="GuideLabel" type="Label" parent="LeftPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 145.0
+offset_right = 375.0
+offset_bottom = 225.0
+text = "[操作ガイド]
+A/← : 左移動   D/→ : 右移動
+W/スペース : ダッシュ (流木・氷を破壊可能)
+ESC : タイトルへ戻る"
+
+[node name="RightPanel" type="Panel" parent="."]
+offset_left = 870.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 260.0
+
+[node name="TimeLabel" type="Label" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 375.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 22
+text = "TIME: 00.00"
+
+[node name="ScoreLabel" type="Label" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 55.0
+offset_right = 375.0
+offset_bottom = 85.0
+text = "SCORE: 0"
+
+[node name="ProgTitle" type="Label" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 95.0
+offset_right = 375.0
+offset_bottom = 120.0
+text = "滝登り進行度"
+
+[node name="ProgressBar" type="ProgressBar" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 125.0
+offset_right = 375.0
+offset_bottom = 155.0
+
+[node name="FeverTitle" type="Label" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 165.0
+offset_right = 375.0
+offset_bottom = 190.0
+text = "登竜ゲージ (100%で龍モード変身!)"
+
+[node name="FeverBar" type="ProgressBar" parent="RightPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 195.0
+offset_right = 375.0
+offset_bottom = 225.0
+
+[node name="LeftButton" type="Button" parent="."]
+offset_left = 40.0
+offset_top = 580.0
+offset_right = 180.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 20
+text = "◀ 左レーン"
+
+[node name="RightButton" type="Button" parent="."]
+offset_left = 220.0
+offset_top = 580.0
+offset_right = 360.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 20
+text = "右レーン ▶"
+
+[node name="DashButton" type="Button" parent="."]
+offset_left = 920.0
+offset_top = 580.0
+offset_right = 1210.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 22
+text = "💨 DASH / 破壊 (長押し)"
+
+[node name="PauseButton" type="Button" parent="."]
+offset_left = 1140.0
+offset_top = 280.0
+offset_right = 1260.0
+offset_bottom = 330.0
+text = "リタイア"

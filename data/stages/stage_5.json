@@ -1,0 +1,15 @@
+{
+	"title": "釣り人の縄張り",
+	"length": 360.0,
+	"target_time": 28.0,
+	"obstacles": [
+		{"type": "hook", "lane": 0, "dist": 50.0},
+		{"type": "rock", "lane": -1, "dist": 80.0},
+		{"type": "hook", "lane": 1, "dist": 120.0},
+		{"type": "orb", "lane": 0, "dist": 160.0},
+		{"type": "hook", "lane": -1, "dist": 200.0},
+		{"type": "breakable", "lane": 1, "dist": 240.0},
+		{"type": "hook", "lane": 0, "dist": 280.0},
+		{"type": "orb", "lane": 1, "dist": 310.0}
+	]
+}

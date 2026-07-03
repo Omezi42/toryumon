@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cufo0001"]
+
+[ext_resource type="Script" path="res://scenes/obstacles/UFOBeam.gd" id="1_ufo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufo"]
+size = Vector2(70, 80)
+
+[node name="UFOBeam" type="Area2D"]
+script = ExtResource("1_ufo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_ufo")

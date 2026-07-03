@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=3 uid="uid://cres0001"]
+
+[ext_resource type="Script" path="res://scenes/ui/ResultScreen.gd" id="1_res"]
+
+[node name="ResultScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_res")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.12, 0.22, 0.35, 1)
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 60.0
+offset_right = 1140.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 48
+text = "🎉 STAGE CLEAR! 🎉"
+horizontal_alignment = 1
+
+[node name="StageNameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 160.0
+offset_right = 1040.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 32
+text = "クリアステージ: --"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 220.0
+offset_right = 1040.0
+offset_bottom = 270.0
+theme_override_font_sizes/font_size = 36
+text = "クリアタイム: 00.00 秒"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 280.0
+offset_right = 1040.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 28
+text = "スコア: 0"
+horizontal_alignment = 1
+
+[node name="RankLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 340.0
+offset_right = 1040.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 44
+text = "評価: ★★★"
+horizontal_alignment = 1
+
+[node name="VBox" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 460.0
+offset_right = 1180.0
+offset_bottom = 540.0
+theme_override_constants/separation = 20
+
+[node name="NextButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "次のステージ / 再試行"
+
+[node name="ReplayButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(180, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "リプレイ確認"
+
+[node name="SaveVideoButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "📹 WebM録画を保存"
+
+[node name="ShareButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(240, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "𝕏 でクリア報告シェア"
+
+[node name="SelectButton" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(180, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "ステージ選択へ"
