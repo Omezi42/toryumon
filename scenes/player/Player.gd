@@ -28,6 +28,7 @@ var dragon_timer: float = 0.0
 
 var invincibility_timer: float = 0.0
 var hook_stun_timer: float = 0.0
+var confusion_timer: float = 0.0
 var lane_cooldown: float = 0.0
 var lane_speed_modifier: float = 1.0 # Affected by rapids / updraft
 
@@ -49,6 +50,8 @@ func _process(delta: float) -> void:
 		invincibility_timer -= delta
 	if lane_cooldown > 0.0:
 		lane_cooldown -= delta
+	if confusion_timer > 0.0:
+		confusion_timer = max(0.0, confusion_timer - delta)
 		
 	if is_dragon_mode:
 		dragon_timer -= delta
@@ -62,8 +65,9 @@ func _process(delta: float) -> void:
 	
 	# Smooth X position
 	position.x = lerp(position.x, target_x, 18.0 * delta)
-	# Slight Y bobbing
-	position.y = BASE_Y + sin(anim_time * 8.0) * 4.0
+	# Smooth Y recovery / bobbing
+	var target_y = BASE_Y + sin(anim_time * 8.0) * 4.0
+	position.y = lerp(position.y, target_y, 12.0 * delta)
 	
 	if has_node("DashParticles"):
 		$DashParticles.emitting = (is_dashing or is_dragon_mode) and hook_stun_timer <= 0.0
@@ -74,10 +78,19 @@ func _process(delta: float) -> void:
 
 func _handle_input(_delta: float) -> void:
 	if lane_cooldown <= 0.0:
-		if Input.is_action_just_pressed("lane_left") and current_lane > -1:
+		var move_left = Input.is_action_just_pressed("lane_left")
+		var move_right = Input.is_action_just_pressed("lane_right")
+		
+		# 混乱タイマーが作動している間、入力を完全に「逆転」させる！
+		if confusion_timer > 0.0:
+			var temp = move_left
+			move_left = move_right
+			move_right = temp
+			
+		if move_left and current_lane > -1:
 			change_lane(current_lane - 1)
 			lane_cooldown = 0.15
-		elif Input.is_action_just_pressed("lane_right") and current_lane < 1:
+		elif move_right and current_lane < 1:
 			change_lane(current_lane + 1)
 			lane_cooldown = 0.15
 		
@@ -127,6 +140,9 @@ func get_speed_multiplier() -> float:
 		mult = 0.65
 	return mult * lane_speed_modifier
 
+func apply_ufo_confusion(duration: float) -> void:
+	confusion_timer = duration
+
 func add_fever(amount: float) -> void:
 	if is_dragon_mode:
 		return
@@ -174,13 +190,21 @@ func _on_area_entered(other: Area2D) -> void:
 			if is_dragon_mode:
 				other.destroy()
 			else:
-				AudioManager.play_sound("hit")
-				hook_stun_timer = 1.5
+				if other.has_method("catch_player"):
+					other.catch_player(self)
+				else:
+					AudioManager.play_sound("hit")
+					hook_stun_timer = 1.5
 		"ufo_beam":
-			AudioManager.play_sound("dash")
-			var warp_lane = -current_lane if current_lane != 0 else (1 if randf() > 0.5 else -1)
-			change_lane(warp_lane)
-			emit_signal("player_teleported", current_lane)
+			if other.has_method("apply_ufo_warp"):
+				other.apply_ufo_warp(self)
+			else:
+				AudioManager.play_sound("dash")
+				var warp_lane = -current_lane if current_lane != 0 else (1 if randf() > 0.5 else -1)
+				change_lane(warp_lane)
+				emit_signal("player_teleported", current_lane)
+				apply_ufo_confusion(2.5)
+				other.destroy()
 		"orb":
 			AudioManager.play_sound("orb")
 			add_fever(25.0)
@@ -277,3 +301,5 @@ func _draw() -> void:
 			# スタン時のピヨピヨ演出（黄色い星マーク風ライン）
 			draw_line(Vector2(-12, -36), Vector2(12, -36), Color("f1c40f"), 3.0)
 			draw_line(Vector2(-6, -42), Vector2(6, -30), Color("f1c40f"), 3.0)
+		if confusion_timer > 0.0:
+			draw_string(ThemeDB.fallback_font, Vector2(-45, -45), "❓左右反転❓", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 14, Color("#9B59B6"))

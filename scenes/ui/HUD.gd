@@ -34,7 +34,10 @@ func _process(_delta: float) -> void:
 		$RightPanel/TimeLabel.modulate = Color.WHITE
 	var prog = clamp(controller.current_distance / max(1.0, controller.stage_length) * 100.0, 0.0, 100.0)
 	$RightPanel/ProgressBar.value = prog
-	$RightPanel/ScoreLabel.text = "SCORE: %d" % controller.score
+	if $RightPanel/ScoreLabel.has_method("update_juicy_text"):
+		$RightPanel/ScoreLabel.update_juicy_text("SCORE: %d" % controller.score, controller.score)
+	else:
+		$RightPanel/ScoreLabel.text = "SCORE: %d" % controller.score
 	
 	# Update Stamina
 	$LeftPanel/StaminaBar.value = player.stamina

@@ -43,16 +43,16 @@ func generate_cliffs() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	# 1. 左右の崖（岩肌ベタ塗り＆和風浮世絵輪郭線）
+	# 1. 左右の崖（新緑の常盤緑＆白練の輪郭線）
 	if left_cliff_points.size() > 2:
-		draw_colored_polygon(left_cliff_points, Color("1a252f"))
+		draw_colored_polygon(left_cliff_points, Color("#2E7D32"))
 		var left_outline = left_cliff_points
-		draw_polyline(left_outline, Color("ecf0f1"), 3.5, true)
+		draw_polyline(left_outline, Color("#FCFCFC"), 3.5, true)
 		
 	if right_cliff_points.size() > 2:
-		draw_colored_polygon(right_cliff_points, Color("1a252f"))
+		draw_colored_polygon(right_cliff_points, Color("#2E7D32"))
 		var right_outline = right_cliff_points
-		draw_polyline(right_outline, Color("ecf0f1"), 3.5, true)
+		draw_polyline(right_outline, Color("#FCFCFC"), 3.5, true)
 	
 	# 2. レーン境界線（和風の掠れ破線）
 	var lane_dividers = [570.0, 710.0]

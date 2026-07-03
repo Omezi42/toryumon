@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://chud0001"]
+[gd_scene load_steps=3 format=3 uid="uid://chud0001"]
 
 [ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1_hud"]
+[ext_resource type="Script" path="res://scenes/ui/juicy_label.gd" id="2_juicy_label"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
@@ -68,6 +69,7 @@ offset_top = 55.0
 offset_right = 375.0
 offset_bottom = 85.0
 text = "SCORE: 0"
+script = ExtResource("2_juicy_label")
 
 [node name="ProgTitle" type="Label" parent="RightPanel"]
 layout_mode = 0

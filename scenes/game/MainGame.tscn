@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmain0001"]
+[gd_scene load_steps=5 format=3 uid="uid://cmain0001"]
 
 [ext_resource type="Script" path="res://scenes/game/StageController.gd" id="1_stage"]
-[ext_resource type="PackedScene" uid="uid://cplayer0001" path="res://scenes/player/Player.tscn" id="2_player"]
-[ext_resource type="PackedScene" uid="uid://chud0001" path="res://scenes/ui/HUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://cstagebg001" path="res://scenes/stage/WaterfallBackground.tscn" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://cplayer0001" path="res://scenes/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://chud0001" path="res://scenes/ui/HUD.tscn" id="4_hud"]
 
 [node name="StageController" type="Node2D"]
 script = ExtResource("1_stage")
 
-[node name="Player" parent="." instance=ExtResource("2_player")]
+[node name="WaterfallBackground" parent="." instance=ExtResource("2_bg")]
 
-[node name="HUD" parent="." instance=ExtResource("3_hud")]
+[node name="Player" parent="." instance=ExtResource("3_player")]
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

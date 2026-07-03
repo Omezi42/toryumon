@@ -164,9 +164,23 @@ func _spawn_obstacle(info: Dictionary) -> void:
 	active_obstacles.add_child(inst)
 
 func _on_player_damaged() -> void:
-	# Knockback penalty
-	current_distance = max(0.0, current_distance - 8.0)
-	score = max(0, score - 50)
+	if is_game_over or is_cleared:
+		return
+		
+	is_game_over = true
+	
+	# 1. 派手なジュース爆散エフェクトをプレイヤーの位置に生成
+	if player:
+		spawn_juicy_death_splatter(player.global_position)
+		# 2. プレイヤーを画面から非表示にする
+		player.visible = false
+	
+	# 3. 録画の停止
+	ReplayManager.stop_recording()
+	WebBridge.stop_and_download_video()
+	
+	# 4. 即死ゲームオーバー画面への高速遷移、またはその場で「Rキー/スペースで1秒リトライ」
+	_show_fast_retry_hud()
 
 func _on_obstacle_broken(_pos: Vector2) -> void:
 	score += 100
@@ -179,38 +193,74 @@ func _on_stage_cleared() -> void:
 	GameManager.complete_stage(elapsed_time, score)
 
 func _on_stage_failed() -> void:
+	if is_game_over or is_cleared:
+		return
 	is_game_over = true
-	var replay_log = ReplayManager.stop_recording()
+	if player:
+		spawn_juicy_death_splatter(player.global_position)
+		player.visible = false
+	ReplayManager.stop_recording()
 	WebBridge.stop_and_download_video()
 	AudioManager.play_sound("hit")
-	GameManager.fail_stage()
+	_show_fast_retry_hud()
+
+func _show_fast_retry_hud() -> void:
+	var retry_label = Label.new()
+	retry_label.text = "💥 衝突大破!! 💀\n\n[ SPACE ] キー / タップ で爆速1秒リトライ"
+	retry_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	retry_label.theme_override_font_sizes/font_size = 36
+	retry_label.theme_override_colors/font_color = Color("#E74C3C")
+	retry_label.theme_override_colors/font_outline_color = Color("#FCFCFC")
+	retry_label.theme_override_constants/outline_size = 6
+	retry_label.position = Vector2(360, 260)
+	add_child(retry_label)
+	
+	retry_label.scale = Vector2.ZERO
+	retry_label.pivot_offset = Vector2(280, 70)
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(retry_label, "scale", Vector2.ONE, 0.35)
+	
+	set_process_unhandled_input(true)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if is_game_over:
+		if event.is_action_pressed("dash") or (event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed):
+			AudioManager.play_sound("dash")
+			get_tree().reload_current_scene()
+
+func spawn_juicy_death_splatter(pos: Vector2) -> void:
+	var splatter_scene = load("res://scenes/effects/JuicyDeathSplatter.tscn")
+	if splatter_scene:
+		var inst = splatter_scene.instantiate()
+		inst.global_position = pos
+		add_child(inst)
+	else:
+		var splatter_script = load("res://scenes/player/juicy_death_splatter.gd")
+		if splatter_script:
+			var inst = Node2D.new()
+			inst.set_script(splatter_script)
+			inst.global_position = pos
+			add_child(inst)
 
 func _draw() -> void:
-	# Draw Waterfall background (Central area x=430 to 850)
-	draw_rect(Rect2(430, 0, 420, 720), Color(0.08, 0.35, 0.55)) # Deep water
-	
-	# Flowing foam / streaks
-	for i in range(15):
-		var x = 445.0 + float(i) * 26.0
-		var y = fmod(bg_scroll_offset * 1.2 + float(i * 137), 720.0)
-		draw_line(Vector2(x, y), Vector2(x, y + 40), Color(0.3, 0.7, 0.9, 0.4), 2.5)
-		
-	# Lane divider lines
-	draw_line(Vector2(570, 0), Vector2(570, 720), Color(1, 1, 1, 0.2), 2.0)
-	draw_line(Vector2(710, 0), Vector2(710, 720), Color(1, 1, 1, 0.2), 2.0)
-	
-	# Rocky cliffs left (0 to 430) and right (850 to 1280)
-	draw_rect(Rect2(0, 0, 430, 720), Color(0.18, 0.16, 0.15))
-	draw_rect(Rect2(850, 0, 430, 720), Color(0.18, 0.16, 0.15))
-	
-	# Cliff edges
-	draw_line(Vector2(430, 0), Vector2(430, 720), Color(0.4, 0.38, 0.35), 6.0)
-	draw_line(Vector2(850, 0), Vector2(850, 720), Color(0.4, 0.38, 0.35), 6.0)
+	if not has_node("WaterfallBackground"):
+		# 陽光きらめく新緑清流フォールバック描画
+		draw_rect(Rect2(430, 0, 420, 720), Color("#A1D8E6")) # 白群
+		for i in range(15):
+			var x = 445.0 + float(i) * 26.0
+			var y = fmod(bg_scroll_offset * 1.2 + float(i * 137), 720.0)
+			draw_line(Vector2(x, y), Vector2(x, y + 40), Color("#FCFCFC", 0.65), 2.5) # 白練
+		draw_line(Vector2(570, 0), Vector2(570, 720), Color(1, 1, 1, 0.3), 2.0)
+		draw_line(Vector2(710, 0), Vector2(710, 720), Color(1, 1, 1, 0.3), 2.0)
+		draw_rect(Rect2(0, 0, 430, 720), Color("#2E7D32")) # 常盤緑
+		draw_rect(Rect2(850, 0, 430, 720), Color("#2E7D32")) # 常盤緑
+		draw_line(Vector2(430, 0), Vector2(430, 720), Color("#FCFCFC"), 5.0)
+		draw_line(Vector2(850, 0), Vector2(850, 720), Color("#FCFCFC"), 5.0)
 	
 	# Goal line indicator if getting close
 	var dist_remaining = stage_length - current_distance
 	if dist_remaining < 35.0:
 		var goal_y = float(dist_remaining / 35.0) * 600.0
 		if goal_y >= 0 and goal_y <= 720:
-			draw_line(Vector2(430, goal_y), Vector2(850, goal_y), Color(1.0, 0.84, 0.0), 8.0)
-			draw_string(ThemeDB.fallback_font, Vector2(580, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 24, Color.YELLOW)
+			draw_line(Vector2(430, goal_y), Vector2(850, goal_y), Color("#F1C40F"), 8.0) # 黄金
+			draw_string(ThemeDB.fallback_font, Vector2(580, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 24, Color("#F1C40F"))

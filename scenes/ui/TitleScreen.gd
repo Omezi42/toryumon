@@ -78,26 +78,27 @@ func _process(delta: float) -> void:
 	if is_transitioning:
 		queue_redraw()
 
-# レイヤー1：滝の高速流動描画
+# レイヤー1：滝の高速流動描画（陽光きらめく新緑清流）
 func draw_waterfall(canvas: CanvasItem) -> void:
-	# 新橋色と藍墨色による滝背景
-	canvas.draw_rect(Rect2(-50, -50, 1380, 820), Color("#1A212E"))
+	# 白群による明るい清流ベース
+	canvas.draw_rect(Rect2(-50, -50, 1380, 820), Color("#A1D8E6"))
 	for i in range(32):
 		var x = float(i) * 42.0 - 20.0
 		var y = fmod(anim_time * 450.0 + float(i * 110), 820.0) - 50.0
-		var stream_color = Color("#46A0B0")
-		stream_color.a = 0.25 + sin(float(i)) * 0.1
+		var stream_color = Color("#FCFCFC") if i % 2 == 0 else Color("#71C5E8") # 白練とコバルトのしぶき
+		stream_color.a = 0.45 + sin(float(i)) * 0.15
 		canvas.draw_line(Vector2(x, y), Vector2(x, y + 140.0), stream_color, 4.0)
 
-# レイヤー2：ゴツゴツした左右の岩崖描画
+# レイヤー2：ゴツゴツした左右の岩崖描画（新緑の崖 常盤緑）
 func draw_cliffs(canvas: CanvasItem) -> void:
-	var cliff_color = Color("#0D1117")
+	var cliff_color = Color("#2E7D32") # 常盤緑
 	# 左側の崖
 	var left_points = PackedVector2Array([
 		Vector2(-30, -30), Vector2(160, -30), Vector2(120, 180),
 		Vector2(180, 340), Vector2(110, 520), Vector2(190, 750), Vector2(-30, 750)
 	])
 	canvas.draw_polygon(left_points, PackedColorArray([cliff_color, cliff_color, cliff_color, cliff_color, cliff_color, cliff_color, cliff_color]))
+	canvas.draw_polyline(left_points, Color("#FCFCFC"), 4.0, true) # 白練の際立つ輪郭線
 	
 	# 右側の崖
 	var right_points = PackedVector2Array([
@@ -105,6 +106,7 @@ func draw_cliffs(canvas: CanvasItem) -> void:
 		Vector2(1090, 380), Vector2(1170, 550), Vector2(1110, 750), Vector2(1310, 750)
 	])
 	canvas.draw_polygon(right_points, PackedColorArray([cliff_color, cliff_color, cliff_color, cliff_color, cliff_color, cliff_color, cliff_color]))
+	canvas.draw_polyline(right_points, Color("#FCFCFC"), 4.0, true) # 白練の際立つ輪郭線
 
 # レイヤー3：緋鯉描画
 func draw_koi(canvas: CanvasItem) -> void:
