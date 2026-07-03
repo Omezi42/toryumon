@@ -1,7 +1,7 @@
 extends Control
 
 var stage_titles = [
-	"1. 始まりの滝 (岩とダッシュ)",
+	"1. 始まりの滝 (岩とレーン移動)",
 	"2. 逆風と急流 (レーン変化)",
 	"3. 落石注意の崖 (サルの投石)",
 	"4. サケ飛び交う急流 (クマのサケ)",
@@ -15,11 +15,15 @@ var stage_titles = [
 
 func _ready() -> void:
 	$BackButton.pressed.connect(_on_back_pressed)
+	FirebaseManager.stages_fetched.connect(_on_stages_fetched)
 	_populate_stages()
 	_populate_shared_stages()
+	FirebaseManager.fetch_shared_stages()
 	GameManager.set_state(GameManager.GameState.STAGE_SELECT)
 
 func _populate_stages() -> void:
+	if not has_node("GridContainer") or not $GridContainer:
+		return
 	for child in $GridContainer.get_children():
 		child.queue_free()
 		
@@ -33,7 +37,11 @@ func _populate_stages() -> void:
 		$GridContainer.add_child(btn)
 
 func _populate_shared_stages() -> void:
-	for child in $SharedContainer.get_children():
+	var container = $ScrollContainer/SharedContainer if has_node("ScrollContainer/SharedContainer") else null
+	if not container:
+		return
+		
+	for child in container.get_children():
 		child.queue_free()
 		
 	for st in FirebaseManager.cached_stages:
@@ -41,7 +49,7 @@ func _populate_shared_stages() -> void:
 		btn.custom_minimum_size = Vector2(340, 60)
 		btn.text = "[%s] %s (作: %s)" % [st.get("code", "#000"), st.get("title", "カスタムステージ"), st.get("author", "匿名")]
 		btn.pressed.connect(_on_shared_btn_pressed.bind(st))
-		$SharedContainer.add_child(btn)
+		container.add_child(btn)
 
 func _on_stage_btn_pressed(stage_id: int) -> void:
 	AudioManager.play_sound("dash")
@@ -54,3 +62,6 @@ func _on_shared_btn_pressed(stage_data: Dictionary) -> void:
 func _on_back_pressed() -> void:
 	AudioManager.play_sound("dash")
 	get_tree().change_scene_to_file("res://scenes/ui/TitleScreen.tscn")
+
+func _on_stages_fetched(_stages: Array) -> void:
+	_populate_shared_stages()

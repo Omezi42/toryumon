@@ -11,7 +11,8 @@ var current_distance: float = 0.0
 var stage_length: float = 300.0
 var elapsed_time: float = 0.0
 var score: int = 0
-var base_scroll_speed: float = 280.0
+var base_scroll_speed: float = 460.0
+var target_time: float = 30.0
 
 var is_game_over: bool = false
 var is_cleared: bool = false
@@ -69,25 +70,39 @@ func _load_stage() -> void:
 				stage_data = json.get_data()
 				
 	if stage_data.is_empty():
-		# Fallback stage data
+		# 絶妙な手応えの30秒黄金比フォールバックステージ
 		stage_data = {
-			"title": "始まりの滝",
-			"length": 280.0,
-			"target_time": 20.0,
+			"title": "激流・登竜門の試練",
+			"length": 1800.0,
+			"target_time": 30.0,
 			"obstacles": [
-				{"type": "rock", "lane": 0, "dist": 40.0},
-				{"type": "breakable", "lane": -1, "dist": 70.0},
-				{"type": "orb", "lane": 1, "dist": 90.0},
-				{"type": "rock", "lane": 1, "dist": 130.0},
-				{"type": "rapids", "lane": 0, "dist": 160.0},
-				{"type": "rock", "lane": -1, "dist": 200.0}
+				# [0s-5s] 導入：スクロールスピードに目を慣らす
+				{"type": "rock", "lane": 0, "dist": 60.0},
+				{"type": "rock", "lane": -1, "dist": 150.0},
+				{"type": "rock", "lane": 1, "dist": 240.0},
+				# [5s-15s] 最初の難所：単一ギミックの回避・ダッシュ判断
+				{"type": "monkey", "lane": -1, "dist": 350.0},
+				{"type": "breakable", "lane": 0, "dist": 480.0},
+				{"type": "salmon", "lane": 1, "dist": 620.0},
+				{"type": "monkey", "lane": 1, "dist": 760.0},
+				# [15s-22s] 一息：スタミナ回復ゾーン＆オーブでチャージ
+				{"type": "orb", "lane": 0, "dist": 950.0},
+				{"type": "breakable", "lane": -1, "dist": 1120.0},
+				{"type": "orb", "lane": 1, "dist": 1280.0},
+				# [22s-28s] 最後の試練：コンボ（挟み込み＆誘導釣り針）
+				{"type": "rock", "lane": -1, "dist": 1420.0},
+				{"type": "monkey", "lane": 1, "dist": 1450.0},
+				{"type": "rapids", "lane": 1, "dist": 1560.0},
+				{"type": "hook", "lane": 0, "dist": 1590.0},
+				{"type": "salmon", "lane": -1, "dist": 1680.0}
 			]
 		}
 		
-	stage_length = float(stage_data.get("length", 300.0))
+	stage_length = float(stage_data.get("length", 1800.0))
+	target_time = float(stage_data.get("target_time", 30.0))
 	obstacles_to_spawn = stage_data.get("obstacles", []).duplicate()
 	# Sort obstacles by dist
-	obstacles_to_spawn.sort_custom(func(a, b): return float(a["dist"]) < float(b["dist"]))
+	obstacles_to_spawn.sort_custom(func(a, b): return float(a.get("dist", 0.0)) < float(b.get("dist", 0.0)))
 
 func _process(delta: float) -> void:
 	if is_game_over or is_cleared:
@@ -103,7 +118,7 @@ func _process(delta: float) -> void:
 	bg_scroll_offset += current_speed * delta
 	
 	# Check lane effects on player
-	if player:
+	if player and is_instance_valid(active_obstacles):
 		var effect_mod = 1.0
 		for child in active_obstacles.get_children():
 			if child.has_method("get_obstacle_type") and child.get_obstacle_type() == "lane_effect":
@@ -113,22 +128,27 @@ func _process(delta: float) -> void:
 		player.lane_speed_modifier = effect_mod
 	
 	# Spawn obstacles
-	while obstacles_to_spawn.size() > 0 and float(obstacles_to_spawn[0]["dist"]) <= current_distance + 35.0:
+	while obstacles_to_spawn.size() > 0 and float(obstacles_to_spawn[0].get("dist", 0.0)) <= current_distance + 35.0:
 		var obs_info = obstacles_to_spawn.pop_front()
 		_spawn_obstacle(obs_info)
 		
 	# Update active obstacles
-	for child in active_obstacles.get_children():
-		if child.has_method("scroll_update"):
-			child.scroll_update(delta, current_speed)
+	if is_instance_valid(active_obstacles):
+		for child in active_obstacles.get_children():
+			if child.has_method("scroll_update"):
+				child.scroll_update(delta, current_speed)
 			
 	queue_redraw()
 	
-	# Check goal
+	# Check goal or time over
 	if current_distance >= stage_length:
 		_on_stage_cleared()
+	elif elapsed_time >= target_time:
+		_on_stage_failed()
 
 func _spawn_obstacle(info: Dictionary) -> void:
+	if not is_instance_valid(active_obstacles):
+		return
 	var type = str(info.get("type", "rock"))
 	var lane = int(info.get("lane", 0))
 	if not scene_map.has(type):
@@ -157,6 +177,13 @@ func _on_stage_cleared() -> void:
 	WebBridge.stop_and_download_video()
 	AudioManager.play_sound("clear")
 	GameManager.complete_stage(elapsed_time, score)
+
+func _on_stage_failed() -> void:
+	is_game_over = true
+	var replay_log = ReplayManager.stop_recording()
+	WebBridge.stop_and_download_video()
+	AudioManager.play_sound("hit")
+	GameManager.fail_stage()
 
 func _draw() -> void:
 	# Draw Waterfall background (Central area x=430 to 850)

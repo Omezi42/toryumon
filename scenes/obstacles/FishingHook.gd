@@ -11,7 +11,7 @@ func _ready() -> void:
 func scroll_update(delta: float, scroll_speed: float) -> void:
 	anim_time += delta
 	position.y += scroll_speed * delta
-	position.x = base_x + sin(anim_time * 3.5) * sway_amp
+	position.x = base_x + sin(anim_time * 6.2) * sway_amp + cos(anim_time * 3.1) * (sway_amp * 0.35)
 	if position.y > 850.0:
 		queue_free()
 	queue_redraw()

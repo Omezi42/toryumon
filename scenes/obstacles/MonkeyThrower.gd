@@ -1,7 +1,7 @@
 extends "res://scenes/obstacles/Obstacle.gd"
 
 var is_from_left: bool = true
-var alert_timer: float = 1.0
+var alert_timer: float = 0.6
 var rock_x: float = 0.0
 var rock_speed_x: float = 400.0
 
@@ -10,10 +10,10 @@ func _ready() -> void:
 	is_from_left = (lane < 0) or (randf() > 0.5 if lane == 0 else false)
 	if is_from_left:
 		position.x = 420.0
-		rock_speed_x = 450.0
+		rock_speed_x = 520.0
 	else:
 		position.x = 860.0
-		rock_speed_x = -450.0
+		rock_speed_x = -520.0
 	rock_x = 0.0
 
 func scroll_update(delta: float, scroll_speed: float) -> void:

@@ -71,3 +71,37 @@ func play_sound(type: String) -> void:
 				if t > 0.3: freq = 1046.50 # C6
 				var val = sin(2.0 * PI * freq * t) * 0.35
 				sfx_playback.push_frame(Vector2(val, val))
+		"drum":
+			# 和太鼓の深い低音と打撃音（決定音）
+			var duration = 0.35
+			var samples = int(sample_rate * duration)
+			for i in range(samples):
+				var t = float(i) / sample_rate
+				var env = pow(1.0 - t / duration, 2.0)
+				# Pitch drop from 120Hz to 60Hz
+				var freq = lerp(120.0, 55.0, min(1.0, t * 8.0))
+				var tone = sin(2.0 * PI * freq * t) * env * 0.6
+				var punch = (randf() * 2.0 - 1.0) * max(0.0, 1.0 - t * 40.0) * 0.4
+				var val = tone + punch
+				sfx_playback.push_frame(Vector2(val, val))
+		"hover_drop":
+			# 澄んだ「ピチョン」という水滴音 / 竹の揺れ
+			var duration = 0.08
+			var samples = int(sample_rate * duration)
+			for i in range(samples):
+				var t = float(i) / sample_rate
+				var env = sin(PI * (t / duration))
+				var freq = lerp(1100.0, 1650.0, t / duration)
+				var val = sin(2.0 * PI * freq * t) * env * 0.25
+				sfx_playback.push_frame(Vector2(val, val))
+		"waterfall_rise":
+			# 滝登りフェードの激しい水しぶき音
+			var duration = 0.6
+			var samples = int(sample_rate * duration)
+			for i in range(samples):
+				var t = float(i) / sample_rate
+				var env = sin(PI * min(1.0, t / duration))
+				var noise = (randf() * 2.0 - 1.0) * env * 0.45
+				var rumble = sin(2.0 * PI * 80.0 * t) * env * 0.2
+				sfx_playback.push_frame(Vector2(noise + rumble, noise + rumble))
+

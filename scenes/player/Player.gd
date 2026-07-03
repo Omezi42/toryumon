@@ -28,6 +28,7 @@ var dragon_timer: float = 0.0
 
 var invincibility_timer: float = 0.0
 var hook_stun_timer: float = 0.0
+var lane_cooldown: float = 0.0
 var lane_speed_modifier: float = 1.0 # Affected by rapids / updraft
 
 var anim_time: float = 0.0
@@ -46,6 +47,8 @@ func _process(delta: float) -> void:
 		
 	if invincibility_timer > 0.0:
 		invincibility_timer -= delta
+	if lane_cooldown > 0.0:
+		lane_cooldown -= delta
 		
 	if is_dragon_mode:
 		dragon_timer -= delta
@@ -70,10 +73,13 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _handle_input(_delta: float) -> void:
-	if Input.is_action_just_pressed("lane_left") and current_lane > -1:
-		change_lane(current_lane - 1)
-	elif Input.is_action_just_pressed("lane_right") and current_lane < 1:
-		change_lane(current_lane + 1)
+	if lane_cooldown <= 0.0:
+		if Input.is_action_just_pressed("lane_left") and current_lane > -1:
+			change_lane(current_lane - 1)
+			lane_cooldown = 0.15
+		elif Input.is_action_just_pressed("lane_right") and current_lane < 1:
+			change_lane(current_lane + 1)
+			lane_cooldown = 0.15
 		
 	var dash_pressed = Input.is_action_pressed("dash")
 	if dash_pressed and not is_exhausted and stamina > 5.0:
@@ -95,16 +101,16 @@ func _update_stamina(delta: float) -> void:
 		return
 		
 	if is_dashing:
-		stamina -= 55.0 * delta
+		stamina -= 38.0 * delta
 		if stamina <= 0.0:
 			stamina = 0.0
 			is_exhausted = true
 			is_dashing = false
 	else:
-		stamina += 35.0 * delta
+		stamina += 15.0 * delta
 		if stamina >= max_stamina:
 			stamina = max_stamina
-		if is_exhausted and stamina >= 40.0:
+		if is_exhausted and stamina >= 35.0:
 			is_exhausted = false
 			
 	emit_signal("stamina_changed", stamina, max_stamina, is_exhausted)

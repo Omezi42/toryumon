@@ -26,7 +26,12 @@ func _process(_delta: float) -> void:
 		return
 		
 	# Update Time & Progress
-	$RightPanel/TimeLabel.text = "TIME: %05.2f" % controller.elapsed_time
+	var time_left = max(0.0, controller.target_time - controller.elapsed_time)
+	$RightPanel/TimeLabel.text = "TIME: %05.2f / %02d" % [controller.elapsed_time, int(controller.target_time)]
+	if time_left < 6.0 and int(time_left * 5.0) % 2 == 0:
+		$RightPanel/TimeLabel.modulate = Color.RED
+	else:
+		$RightPanel/TimeLabel.modulate = Color.WHITE
 	var prog = clamp(controller.current_distance / max(1.0, controller.stage_length) * 100.0, 0.0, 100.0)
 	$RightPanel/ProgressBar.value = prog
 	$RightPanel/ScoreLabel.text = "SCORE: %d" % controller.score

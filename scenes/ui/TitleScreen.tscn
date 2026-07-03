@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctitle0001"]
+[gd_scene load_steps=6 format=3 uid="uid://ctitle0001"]
 
 [ext_resource type="Script" path="res://scenes/ui/TitleScreen.gd" id="1_title"]
+[ext_resource type="Script" path="res://scenes/ui/ripple_effect.gd" id="2_ripple"]
+[ext_resource type="Script" path="res://scenes/ui/juicy_button.gd" id="3_juicy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.101961, 0.129412, 0.180392, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.988235, 0.988235, 0.988235, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.27451, 0.62745, 0.690196, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.988235, 0.988235, 0.988235, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 8.0
+expand_margin_right = 8.0
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -11,52 +41,138 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_title")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="Layer1_Waterfall" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer2_Cliffs" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer3_Interactive" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RippleEffect" type="Control" parent="Layer3_Interactive"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ripple")
+
+[node name="Layer4_UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleLabel" type="Label" parent="Layer4_UI"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 100.0
+offset_top = 85.0
 offset_right = 1140.0
-offset_bottom = 180.0
-theme_override_font_sizes/font_size = 54
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(0.988235, 0.988235, 0.988235, 1)
+theme_override_colors/font_shadow_color = Color(0.0509804, 0.0666667, 0.0901961, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 58
 text = "登竜門！爆走コイキング（仮）"
 horizontal_alignment = 1
 
-[node name="SubTitleLabel" type="Label" parent="."]
+[node name="SubTitleLabel" type="Label" parent="Layer4_UI"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 180.0
+offset_top = 170.0
 offset_right = 1140.0
-offset_bottom = 230.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.819608, 0.203922, 0.219608, 1)
 theme_override_font_sizes/font_size = 28
 text = "〜 龍門の軌跡 鯉が龍になる日 〜"
 horizontal_alignment = 1
 
-[node name="InfoLabel" type="Label" parent="."]
+[node name="InfoLabel" type="Label" parent="Layer4_UI"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 240.0
+offset_top = 225.0
 offset_right = 1140.0
-offset_bottom = 280.0
-theme_override_font_sizes/font_size = 20
-text = "Godot 4 × Firebase ステージ共有 ＋ SNS動画保存対応アクション"
+offset_bottom = 265.0
+theme_override_colors/font_color = Color(0.988235, 0.988235, 0.988235, 0.75)
+theme_override_font_sizes/font_size = 18
+text = "清流和モダン × 触覚マイクロインタラクション設計"
 horizontal_alignment = 1
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="Layer4_UI"]
 layout_mode = 0
-offset_left = 440.0
-offset_top = 320.0
-offset_right = 840.0
-offset_bottom = 480.0
-theme_override_constants/separation = 25
+offset_left = 400.0
+offset_top = 310.0
+offset_right = 880.0
+offset_bottom = 470.0
+theme_override_constants/separation = 28
 
-[node name="StartButton" type="Button" parent="VBox"]
-custom_minimum_size = Vector2(0, 60)
+[node name="StartButton" type="Button" parent="Layer4_UI/VBox"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.988235, 0.988235, 0.988235, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "ゲームスタート (ステージ選択)"
+script = ExtResource("3_juicy")
 
-[node name="EditorButton" type="Button" parent="VBox"]
-custom_minimum_size = Vector2(0, 60)
+[node name="EditorButton" type="Button" parent="Layer4_UI/VBox"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.988235, 0.988235, 0.988235, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "ステージエディター ＆ コミュニティ共有"
+script = ExtResource("3_juicy")
+
+[node name="Layer5_Foreground" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MistParticles" type="CPUParticles2D" parent="Layer5_Foreground"]
+position = Vector2(640, 0)
+amount = 24
+lifetime = 4.0
+preprocess = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(680, 10)
+direction = Vector2(0, 1)
+spread = 15.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 80.0
+initial_velocity_max = 160.0
+scale_amount_min = 2.0
+scale_amount_max = 6.0
+color = Color(0.988235, 0.988235, 0.988235, 0.4)

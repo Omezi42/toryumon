@@ -12,6 +12,7 @@ var current_state: GameState = GameState.TITLE
 var current_stage_id: int = 1
 var current_custom_stage_data: Dictionary = {}
 var is_custom_stage: bool = false
+var is_stage_failed: bool = false
 
 var last_clear_time: float = 0.0
 var last_score: int = 0
@@ -49,6 +50,7 @@ func start_custom_stage(stage_data: Dictionary) -> void:
 	get_tree().change_scene_to_file("res://scenes/game/MainGame.tscn")
 
 func complete_stage(clear_time: float, score: int) -> void:
+	is_stage_failed = false
 	last_clear_time = clear_time
 	last_score = score
 	
@@ -73,6 +75,7 @@ func complete_stage(clear_time: float, score: int) -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/ResultScreen.tscn")
 
 func fail_stage() -> void:
+	is_stage_failed = true
 	emit_signal("stage_failed")
 	set_state(GameState.RESULT)
 	get_tree().change_scene_to_file("res://scenes/ui/ResultScreen.tscn")
