@@ -41,13 +41,13 @@ func start_stage(stage_id: int) -> void:
 	current_stage_id = stage_id
 	is_custom_stage = false
 	set_state(GameState.PLAYING)
-	get_tree().change_scene_to_file("res://scenes/game/MainGame.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/game/MainGame.tscn")
 
 func start_custom_stage(stage_data: Dictionary) -> void:
 	current_custom_stage_data = stage_data
 	is_custom_stage = true
 	set_state(GameState.PLAYING)
-	get_tree().change_scene_to_file("res://scenes/game/MainGame.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/game/MainGame.tscn")
 
 func complete_stage(clear_time: float, score: int) -> void:
 	is_stage_failed = false
@@ -72,13 +72,13 @@ func complete_stage(clear_time: float, score: int) -> void:
 		
 	emit_signal("stage_cleared", current_stage_id, clear_time, score)
 	set_state(GameState.RESULT)
-	get_tree().change_scene_to_file("res://scenes/ui/ResultScreen.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/ResultScreen.tscn")
 
 func fail_stage() -> void:
 	is_stage_failed = true
 	emit_signal("stage_failed")
 	set_state(GameState.RESULT)
-	get_tree().change_scene_to_file("res://scenes/ui/ResultScreen.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/ResultScreen.tscn")
 
 func load_game() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):

@@ -11,7 +11,7 @@ var current_distance: float = 0.0
 var stage_length: float = 300.0
 var elapsed_time: float = 0.0
 var score: int = 0
-var base_scroll_speed: float = 460.0
+var base_scroll_speed: float = 1000.0
 var target_time: float = 30.0
 
 var is_game_over: bool = false
@@ -27,15 +27,14 @@ var scene_map = {
 	"salmon": preload("res://scenes/obstacles/BearSalmon.tscn"),
 	"hook": preload("res://scenes/obstacles/FishingHook.tscn"),
 	"ufo": preload("res://scenes/obstacles/UFOBeam.tscn"),
-	"orb": preload("res://scenes/obstacles/DragonOrb.tscn"),
 	"rapids": preload("res://scenes/obstacles/LaneEffectZone.tscn"),
 	"updraft": preload("res://scenes/obstacles/LaneEffectZone.tscn")
 }
 
 const LANE_X = {
-	-1: 500.0,
-	0: 640.0,
-	1: 780.0
+	-1: 190.0,
+	0: 360.0,
+	1: 530.0
 }
 
 func _ready() -> void:
@@ -73,8 +72,8 @@ func _load_stage() -> void:
 		# 絶妙な手応えの30秒黄金比フォールバックステージ
 		stage_data = {
 			"title": "激流・登竜門の試練",
-			"length": 1800.0,
-			"target_time": 30.0,
+			"length": 3450.0,
+			"target_time": 120.0,
 			"obstacles": [
 				# [0s-5s] 導入：スクロールスピードに目を慣らす
 				{"type": "rock", "lane": 0, "dist": 60.0},
@@ -85,21 +84,37 @@ func _load_stage() -> void:
 				{"type": "breakable", "lane": 0, "dist": 480.0},
 				{"type": "salmon", "lane": 1, "dist": 620.0},
 				{"type": "monkey", "lane": 1, "dist": 760.0},
-				# [15s-22s] 一息：スタミナ回復ゾーン＆オーブでチャージ
-				{"type": "orb", "lane": 0, "dist": 950.0},
+				# [15s-22s] 中盤突入：障害物の回避とダッシュ活用
+				{"type": "rock", "lane": 0, "dist": 950.0},
 				{"type": "breakable", "lane": -1, "dist": 1120.0},
-				{"type": "orb", "lane": 1, "dist": 1280.0},
-				# [22s-28s] 最後の試練：コンボ（挟み込み＆誘導釣り針）
+				{"type": "salmon", "lane": 1, "dist": 1280.0},
+				# [22s-28s] 中盤：コンボ（挟み込み＆誘導釣り針）
 				{"type": "rock", "lane": -1, "dist": 1420.0},
 				{"type": "monkey", "lane": 1, "dist": 1450.0},
 				{"type": "rapids", "lane": 1, "dist": 1560.0},
 				{"type": "hook", "lane": 0, "dist": 1590.0},
-				{"type": "salmon", "lane": -1, "dist": 1680.0}
+				{"type": "salmon", "lane": -1, "dist": 1680.0},
+				# [28s-45s] 後半への展開：複合ラッシュ
+				{"type": "monkey", "lane": 0, "dist": 1800.0},
+				{"type": "ufo", "lane": 1, "dist": 1920.0},
+				{"type": "rock", "lane": -1, "dist": 2040.0},
+				{"type": "salmon", "lane": 1, "dist": 2160.0},
+				{"type": "hook", "lane": 0, "dist": 2280.0},
+				{"type": "monkey", "lane": -1, "dist": 2400.0},
+				{"type": "updraft", "lane": 0, "dist": 2520.0},
+				{"type": "rock", "lane": 1, "dist": 2640.0},
+				{"type": "breakable", "lane": -1, "dist": 2760.0},
+				{"type": "ufo", "lane": 0, "dist": 2880.0},
+				{"type": "salmon", "lane": 1, "dist": 3000.0},
+				{"type": "hook", "lane": -1, "dist": 3120.0},
+				{"type": "breakable", "lane": 0, "dist": 3240.0},
+				{"type": "updraft", "lane": -1, "dist": 3350.0},
+				{"type": "updraft", "lane": 1, "dist": 3350.0}
 			]
 		}
 		
-	stage_length = float(stage_data.get("length", 1800.0))
-	target_time = float(stage_data.get("target_time", 30.0))
+	stage_length = float(stage_data.get("length", 3450.0))
+	target_time = float(stage_data.get("target_time", 120.0))
 	obstacles_to_spawn = stage_data.get("obstacles", []).duplicate()
 	# Sort obstacles by dist
 	obstacles_to_spawn.sort_custom(func(a, b): return float(a.get("dist", 0.0)) < float(b.get("dist", 0.0)))
@@ -112,7 +127,7 @@ func _process(delta: float) -> void:
 	var speed_mult = player.get_speed_multiplier() if player else 1.0
 	var current_speed = base_scroll_speed * speed_mult
 	
-	current_distance += (current_speed * delta) / 10.0 # scale unit distance
+	current_distance += (current_speed * delta) / 5.8 # scale unit distance
 	score = int(current_distance * 10)
 	
 	bg_scroll_offset += current_speed * delta
@@ -128,7 +143,7 @@ func _process(delta: float) -> void:
 		player.lane_speed_modifier = effect_mod
 	
 	# Spawn obstacles
-	while obstacles_to_spawn.size() > 0 and float(obstacles_to_spawn[0].get("dist", 0.0)) <= current_distance + 35.0:
+	while obstacles_to_spawn.size() > 0 and float(obstacles_to_spawn[0].get("dist", 0.0)) <= current_distance + 45.0:
 		var obs_info = obstacles_to_spawn.pop_front()
 		_spawn_obstacle(obs_info)
 		
@@ -206,17 +221,18 @@ func _on_stage_failed() -> void:
 
 func _show_fast_retry_hud() -> void:
 	var retry_label = Label.new()
-	retry_label.text = "💥 衝突大破!! 💀\n\n[ SPACE ] キー / タップ で爆速1秒リトライ"
+	retry_label.text = "💥 衝突大破!! 💀\n\n画面タップ / [SPACE] で\n爆速1秒リトライ"
 	retry_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	retry_label.theme_override_font_sizes/font_size = 36
-	retry_label.theme_override_colors/font_color = Color("#E74C3C")
-	retry_label.theme_override_colors/font_outline_color = Color("#FCFCFC")
-	retry_label.theme_override_constants/outline_size = 6
-	retry_label.position = Vector2(360, 260)
+	retry_label.add_theme_font_size_override("font_size", 36)
+	retry_label.add_theme_color_override("font_color", Color("#E74C3C"))
+	retry_label.add_theme_color_override("font_outline_color", Color("#FCFCFC"))
+	retry_label.add_theme_constant_override("outline_size", 6)
+	retry_label.position = Vector2(40, 520)
+	retry_label.custom_minimum_size = Vector2(640, 200)
 	add_child(retry_label)
 	
 	retry_label.scale = Vector2.ZERO
-	retry_label.pivot_offset = Vector2(280, 70)
+	retry_label.pivot_offset = Vector2(320, 100)
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(retry_label, "scale", Vector2.ONE, 0.35)
 	
@@ -226,7 +242,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_game_over:
 		if event.is_action_pressed("dash") or (event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed):
 			AudioManager.play_sound("dash")
-			get_tree().reload_current_scene()
+			get_tree().call_deferred("reload_current_scene")
 
 func spawn_juicy_death_splatter(pos: Vector2) -> void:
 	var splatter_scene = load("res://scenes/effects/JuicyDeathSplatter.tscn")
@@ -244,23 +260,23 @@ func spawn_juicy_death_splatter(pos: Vector2) -> void:
 
 func _draw() -> void:
 	if not has_node("WaterfallBackground"):
-		# 陽光きらめく新緑清流フォールバック描画
-		draw_rect(Rect2(430, 0, 420, 720), Color("#A1D8E6")) # 白群
-		for i in range(15):
-			var x = 445.0 + float(i) * 26.0
-			var y = fmod(bg_scroll_offset * 1.2 + float(i * 137), 720.0)
+		# スマホ縦画面向け・陽光きらめく新緑清流フォールバック描画
+		draw_rect(Rect2(80, 0, 560, 1280), Color("#A1D8E6")) # 白群
+		for i in range(20):
+			var x = 100.0 + float(i) * 26.0
+			var y = fmod(bg_scroll_offset * 1.2 + float(i * 137), 1280.0)
 			draw_line(Vector2(x, y), Vector2(x, y + 40), Color("#FCFCFC", 0.65), 2.5) # 白練
-		draw_line(Vector2(570, 0), Vector2(570, 720), Color(1, 1, 1, 0.3), 2.0)
-		draw_line(Vector2(710, 0), Vector2(710, 720), Color(1, 1, 1, 0.3), 2.0)
-		draw_rect(Rect2(0, 0, 430, 720), Color("#2E7D32")) # 常盤緑
-		draw_rect(Rect2(850, 0, 430, 720), Color("#2E7D32")) # 常盤緑
-		draw_line(Vector2(430, 0), Vector2(430, 720), Color("#FCFCFC"), 5.0)
-		draw_line(Vector2(850, 0), Vector2(850, 720), Color("#FCFCFC"), 5.0)
+		draw_line(Vector2(275, 0), Vector2(275, 1280), Color(1, 1, 1, 0.3), 2.0)
+		draw_line(Vector2(445, 0), Vector2(445, 1280), Color(1, 1, 1, 0.3), 2.0)
+		draw_rect(Rect2(0, 0, 80, 1280), Color("#2E7D32")) # 常盤緑
+		draw_rect(Rect2(640, 0, 80, 1280), Color("#2E7D32")) # 常盤緑
+		draw_line(Vector2(80, 0), Vector2(80, 1280), Color("#FCFCFC"), 5.0)
+		draw_line(Vector2(640, 0), Vector2(640, 1280), Color("#FCFCFC"), 5.0)
 	
 	# Goal line indicator if getting close
 	var dist_remaining = stage_length - current_distance
 	if dist_remaining < 35.0:
-		var goal_y = float(dist_remaining / 35.0) * 600.0
-		if goal_y >= 0 and goal_y <= 720:
-			draw_line(Vector2(430, goal_y), Vector2(850, goal_y), Color("#F1C40F"), 8.0) # 黄金
-			draw_string(ThemeDB.fallback_font, Vector2(580, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 24, Color("#F1C40F"))
+		var goal_y = float(dist_remaining / 35.0) * 1100.0
+		if goal_y >= 0 and goal_y <= 1280:
+			draw_line(Vector2(80, goal_y), Vector2(640, goal_y), Color("#F1C40F"), 8.0) # 黄金
+			draw_string(ThemeDB.fallback_font, Vector2(360, goal_y - 10), "🏁 GOAL 🏁", HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER, -1, 28, Color("#F1C40F"))

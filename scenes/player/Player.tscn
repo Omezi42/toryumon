@@ -1,29 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cplayer0001"]
+[gd_scene load_steps=3 format=3 uid="uid://cplayer0001"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_player"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 24.0
-
-[sub_resource type="Curve" id="Curve_particles"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_particles"]
-curve = SubResource("Curve_particles")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dash"]
-emission_shape = 1
-emission_sphere_radius = 16.0
-direction = Vector3(0, 1, 0)
-spread = 25.0
-initial_velocity_min = 120.0
-initial_velocity_max = 200.0
-gravity = Vector3(0, 0, 0)
-scale_min = 4.0
-scale_max = 10.0
-scale_curve = SubResource("CurveTexture_particles")
-color = Color(0.9, 0.95, 1.0, 0.75)
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_player")
@@ -31,9 +11,18 @@ script = ExtResource("1_player")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_player")
 
-[node name="DashParticles" type="GPUParticles2D" parent="."]
+[node name="DashParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, 20)
 emitting = false
 amount = 32
-process_material = SubResource("ParticleProcessMaterial_dash")
 lifetime = 0.4
+emission_shape = 1
+emission_sphere_radius = 16.0
+direction = Vector2(0, 1)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 10.0
+color = Color(0.9, 0.95, 1.0, 0.75)

@@ -1,44 +1,322 @@
 {
 	"title": "1. 始まりの滝 (岩とレーン移動)",
-	"length": 1150.0,
-	"target_time": 99.0,
+	"length": 3450.0,
+	"target_time": 120.0,
 	"obstacles": [
-		{"type": "rock", "lane": 0, "dist": 60.0},
-		{"type": "rock", "lane": -1, "dist": 90.0},
-		{"type": "rock", "lane": 1, "dist": 120.0},
-		{"type": "rock", "lane": 0, "dist": 150.0},
-		{"type": "rock", "lane": -1, "dist": 180.0},
-		{"type": "rock", "lane": 1, "dist": 210.0},
-		{"type": "rock", "lane": 0, "dist": 240.0},
-		{"type": "rock", "lane": 0, "dist": 270.0},
-		{"type": "rock", "lane": -1, "dist": 300.0},
-		{"type": "rock", "lane": 1, "dist": 330.0},
-		{"type": "rock", "lane": 0, "dist": 360.0},
-		{"type": "rock", "lane": -1, "dist": 390.0},
-		{"type": "rock", "lane": 1, "dist": 420.0},
-		{"type": "rock", "lane": -1, "dist": 450.0},
-		{"type": "rock", "lane": 1, "dist": 450.0},
-		{"type": "rock", "lane": 0, "dist": 490.0},
-		{"type": "rock", "lane": -1, "dist": 520.0},
-		{"type": "rock", "lane": 1, "dist": 550.0},
-		{"type": "rock", "lane": 0, "dist": 580.0},
-		{"type": "rock", "lane": -1, "dist": 610.0},
-		{"type": "rock", "lane": 1, "dist": 640.0},
-		{"type": "rock", "lane": 0, "dist": 670.0},
-		{"type": "rock", "lane": -1, "dist": 700.0},
-		{"type": "rock", "lane": 1, "dist": 730.0},
-		{"type": "rock", "lane": 0, "dist": 760.0},
-		{"type": "rock", "lane": -1, "dist": 790.0},
-		{"type": "rock", "lane": 1, "dist": 820.0},
-		{"type": "rock", "lane": -1, "dist": 850.0},
-		{"type": "rock", "lane": 1, "dist": 850.0},
-		{"type": "rock", "lane": 0, "dist": 890.0},
-		{"type": "rock", "lane": -1, "dist": 920.0},
-		{"type": "rock", "lane": 1, "dist": 950.0},
-		{"type": "rock", "lane": 0, "dist": 980.0},
-		{"type": "rock", "lane": -1, "dist": 1010.0},
-		{"type": "rock", "lane": 1, "dist": 1040.0},
-		{"type": "rock", "lane": -1, "dist": 1070.0},
-		{"type": "rock", "lane": 1, "dist": 1070.0}
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 60.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 120.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 180.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 240.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 300.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 360.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 420.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 450.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 450.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 520.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 580.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 640.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 700.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 760.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 820.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 850.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 850.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 920.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 980.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1040.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1070.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1070.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1140.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1200.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1280.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1280.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1340.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1420.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1420.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1490.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1540.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1620.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1660.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1720.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1720.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1790.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1840.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1920.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2000.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2040.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2040.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2100.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2200.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2280.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2340.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2340.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2400.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2500.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2550.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2610.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2660.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2660.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2730.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2780.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2880.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2970.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 3050.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 3050.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 3160.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 3260.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 3310.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 3360.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 3360.0
+		}
 	]
 }

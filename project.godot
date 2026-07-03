@@ -25,10 +25,14 @@ WebBridge="*res://scripts/autoloads/WebBridge.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=720
+window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [input]
 

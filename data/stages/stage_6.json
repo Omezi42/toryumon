@@ -1,42 +1,447 @@
 {
 	"title": "6. 未知との遭遇 (UFOワープ)",
-	"length": 1150.0,
-	"target_time": 99.0,
+	"length": 3450.0,
+	"target_time": 120.0,
 	"obstacles": [
-		{"type": "ufo", "lane": 0, "dist": 50.0},
-		{"type": "rock", "lane": -1, "dist": 80.0},
-		{"type": "ufo", "lane": 1, "dist": 110.0},
-		{"type": "rock", "lane": 0, "dist": 140.0},
-		{"type": "ufo", "lane": -1, "dist": 170.0},
-		{"type": "rock", "lane": 1, "dist": 200.0},
-		{"type": "ufo", "lane": 0, "dist": 230.0},
-		{"type": "rock", "lane": -1, "dist": 260.0},
-		{"type": "ufo", "lane": 1, "dist": 290.0},
-		{"type": "rock", "lane": 0, "dist": 320.0},
-		{"type": "ufo", "lane": -1, "dist": 350.0},
-		{"type": "rock", "lane": 1, "dist": 380.0},
-		{"type": "ufo", "lane": 0, "dist": 410.0},
-		{"type": "rock", "lane": -1, "dist": 440.0},
-		{"type": "ufo", "lane": 1, "dist": 470.0},
-		{"type": "rock", "lane": 0, "dist": 500.0},
-		{"type": "ufo", "lane": -1, "dist": 530.0},
-		{"type": "rock", "lane": 1, "dist": 560.0},
-		{"type": "ufo", "lane": 0, "dist": 590.0},
-		{"type": "rock", "lane": -1, "dist": 620.0},
-		{"type": "ufo", "lane": 1, "dist": 650.0},
-		{"type": "rock", "lane": 0, "dist": 680.0},
-		{"type": "ufo", "lane": -1, "dist": 710.0},
-		{"type": "rock", "lane": 1, "dist": 740.0},
-		{"type": "ufo", "lane": 0, "dist": 770.0},
-		{"type": "rock", "lane": -1, "dist": 800.0},
-		{"type": "ufo", "lane": 1, "dist": 830.0},
-		{"type": "rock", "lane": 0, "dist": 860.0},
-		{"type": "ufo", "lane": -1, "dist": 890.0},
-		{"type": "rock", "lane": 1, "dist": 920.0},
-		{"type": "ufo", "lane": 0, "dist": 950.0},
-		{"type": "rock", "lane": -1, "dist": 980.0},
-		{"type": "ufo", "lane": 1, "dist": 1010.0},
-		{"type": "rock", "lane": 0, "dist": 1040.0},
-		{"type": "ufo", "lane": -1, "dist": 1070.0}
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 50.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 80.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 110.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 140.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 170.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 200.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 230.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 260.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 290.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 320.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 350.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 380.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 410.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 440.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 470.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 500.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 530.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 560.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 590.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 620.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 650.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 680.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 710.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 740.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 770.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 800.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 830.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 860.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 890.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 920.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 950.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 980.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 1010.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1040.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 1070.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1140.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 1190.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 1190.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1240.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 1290.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1340.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1340.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 1400.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1440.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 1490.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1540.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 1590.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1640.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1700.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 1750.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 1750.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 1800.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 1850.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 1900.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 1950.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 2000.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 2000.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2050.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 2100.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2150.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 2200.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2270.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 2330.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 2330.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2380.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 2430.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2480.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2480.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 2540.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 2540.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 2590.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 2640.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2690.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 2740.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 2800.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 2850.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 2850.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 2900.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 2950.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 3000.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 3050.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 3100.0
+		},
+		{
+			"type": "rock",
+			"lane": 1,
+			"dist": 3100.0
+		},
+		{
+			"type": "ufo",
+			"lane": 0,
+			"dist": 3160.0
+		},
+		{
+			"type": "rock",
+			"lane": -1,
+			"dist": 3210.0
+		},
+		{
+			"type": "ufo",
+			"lane": 1,
+			"dist": 3260.0
+		},
+		{
+			"type": "rock",
+			"lane": 0,
+			"dist": 3310.0
+		},
+		{
+			"type": "ufo",
+			"lane": -1,
+			"dist": 3360.0
+		}
 	]
 }

@@ -12,7 +12,7 @@ func get_obstacle_type() -> String:
 
 func scroll_update(delta: float, scroll_speed: float) -> void:
 	position.y += scroll_speed * delta
-	if position.y > 850.0:
+	if position.y > 1400.0:
 		queue_free()
 
 func destroy() -> void:

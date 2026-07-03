@@ -11,12 +11,12 @@ func _ready() -> void:
 func scroll_update(delta: float, scroll_speed: float) -> void:
 	if is_struggling and is_instance_valid(target_player):
 		# プレイヤーを拘束している間、障害物もプレイヤーと一緒に少し下流へ下がる
-		position.y += (scroll_speed * 1.3) * delta
+		position.y += min(scroll_speed * 0.85, 800.0) * delta
 		target_player.position.y = position.y
 		
 		# 脱出のための連打判定
 		if Input.is_action_just_pressed("dash") or Input.is_action_just_pressed("lane_left") or Input.is_action_just_pressed("lane_right"):
-			struggle_progress += 15.0
+			struggle_progress += 25.0
 			AudioManager.play_sound("splash")
 			# ぷるぷる揺れる演出
 			position.x += randf_range(-6.0, 6.0)
@@ -34,7 +34,7 @@ func scroll_update(delta: float, scroll_speed: float) -> void:
 	else:
 		position.y += scroll_speed * delta
 		
-	if position.y > 850.0:
+	if position.y > 1400.0:
 		if is_struggling and is_instance_valid(target_player):
 			target_player.take_damage()
 		queue_free()

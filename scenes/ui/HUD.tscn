@@ -7,127 +7,119 @@
 script = ExtResource("1_hud")
 
 [node name="LeftPanel" type="Panel" parent="."]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 410.0
-offset_bottom = 260.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 350.0
+offset_bottom = 175.0
 
 [node name="TitleLabel" type="Label" parent="LeftPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 375.0
-offset_bottom = 45.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 325.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 14
 text = "スタミナ (呼吸) ゲージ"
 
 [node name="StaminaBar" type="ProgressBar" parent="LeftPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 50.0
-offset_right = 375.0
-offset_bottom = 80.0
+offset_left = 10.0
+offset_top = 34.0
+offset_right = 325.0
+offset_bottom = 58.0
 value = 100.0
 
 [node name="StatusLabel" type="Label" parent="LeftPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 95.0
-offset_right = 375.0
-offset_bottom = 135.0
+offset_left = 10.0
+offset_top = 64.0
+offset_right = 325.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 15
 text = " 通常泳ぎ"
 
 [node name="GuideLabel" type="Label" parent="LeftPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 145.0
-offset_right = 375.0
-offset_bottom = 225.0
-text = "[操作ガイド]
-A/← : 左移動   D/→ : 右移動
-W/スペース : ダッシュ (流木・氷を破壊可能)
-ESC : タイトルへ戻る"
+offset_left = 10.0
+offset_top = 96.0
+offset_right = 325.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 13
+text = "[操作] フリック/タップ
+または下部親指ボタン
+DASH(1コース1回限定)で
+3秒間無敵＆障害物破壊！"
 
 [node name="RightPanel" type="Panel" parent="."]
-offset_left = 870.0
-offset_top = 20.0
-offset_right = 1260.0
-offset_bottom = 260.0
+offset_left = 370.0
+offset_top = 10.0
+offset_right = 705.0
+offset_bottom = 120.0
 
 [node name="TimeLabel" type="Label" parent="RightPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 375.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 22
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 325.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 18
 text = "TIME: 00.00"
 
 [node name="ScoreLabel" type="Label" parent="RightPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 55.0
-offset_right = 375.0
-offset_bottom = 85.0
+offset_left = 10.0
+offset_top = 34.0
+offset_right = 325.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 16
 text = "SCORE: 0"
 script = ExtResource("2_juicy_label")
 
 [node name="ProgTitle" type="Label" parent="RightPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 95.0
-offset_right = 375.0
-offset_bottom = 120.0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 325.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 13
 text = "滝登り進行度"
 
 [node name="ProgressBar" type="ProgressBar" parent="RightPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 125.0
-offset_right = 375.0
-offset_bottom = 155.0
-
-[node name="FeverTitle" type="Label" parent="RightPanel"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 165.0
-offset_right = 375.0
-offset_bottom = 190.0
-text = "登竜ゲージ (100%で龍モード変身!)"
-
-[node name="FeverBar" type="ProgressBar" parent="RightPanel"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 195.0
-offset_right = 375.0
-offset_bottom = 225.0
+offset_left = 10.0
+offset_top = 82.0
+offset_right = 325.0
+offset_bottom = 102.0
 
 [node name="LeftButton" type="Button" parent="."]
-offset_left = 40.0
-offset_top = 580.0
-offset_right = 180.0
-offset_bottom = 680.0
-theme_override_font_sizes/font_size = 20
-text = "◀ 左レーン"
+offset_left = 20.0
+offset_top = 1100.0
+offset_right = 190.0
+offset_bottom = 1240.0
+theme_override_font_sizes/font_size = 24
+text = "◀ 左へ"
 
 [node name="RightButton" type="Button" parent="."]
-offset_left = 220.0
-offset_top = 580.0
-offset_right = 360.0
-offset_bottom = 680.0
-theme_override_font_sizes/font_size = 20
-text = "右レーン ▶"
+offset_left = 530.0
+offset_top = 1100.0
+offset_right = 700.0
+offset_bottom = 1240.0
+theme_override_font_sizes/font_size = 24
+text = "右へ ▶"
 
 [node name="DashButton" type="Button" parent="."]
-offset_left = 920.0
-offset_top = 580.0
-offset_right = 1210.0
-offset_bottom = 680.0
-theme_override_font_sizes/font_size = 22
-text = "💨 DASH / 破壊 (長押し)"
+offset_left = 205.0
+offset_top = 1090.0
+offset_right = 515.0
+offset_bottom = 1250.0
+theme_override_font_sizes/font_size = 24
+text = "💨 無敵DASH発動
+(3秒間/1回限定)"
 
 [node name="PauseButton" type="Button" parent="."]
-offset_left = 1140.0
-offset_top = 280.0
-offset_right = 1260.0
-offset_bottom = 330.0
+offset_left = 590.0
+offset_top = 190.0
+offset_right = 705.0
+offset_bottom = 235.0
+theme_override_font_sizes/font_size = 16
 text = "リタイア"

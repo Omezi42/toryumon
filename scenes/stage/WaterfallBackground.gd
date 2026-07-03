@@ -1,11 +1,13 @@
 @tool
 extends Node2D
 
-@export var flow_speed: float = 2.5:
+@export var flow_speed: float = 7.5:
 	set(val):
 		flow_speed = val
-		if $ColorRect and $ColorRect.material:
-			$ColorRect.material.set_shader_parameter("flow_speed", flow_speed)
+		if is_inside_tree() and has_node("ColorRect"):
+			var rect = get_node("ColorRect")
+			if rect.material:
+				rect.material.set_shader_parameter("flow_speed", flow_speed)
 
 var left_cliff_points: PackedVector2Array = PackedVector2Array()
 var right_cliff_points: PackedVector2Array = PackedVector2Array()
@@ -26,19 +28,19 @@ func generate_cliffs() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.seed = 12345 # 固定シードで決定論的に美しい崖フレームを構築
 	
-	# 左側の崖 (X: 0 ～ 430)
+	# 左側の崖 (X: 0 ～ 80)
 	left_cliff_points.append(Vector2(0, 0))
-	for y in range(0, 730, 40):
-		var x_offset = rng.randf_range(380.0, 430.0)
+	for y in range(0, 1320, 40):
+		var x_offset = rng.randf_range(60.0, 80.0)
 		left_cliff_points.append(Vector2(x_offset, float(y)))
-	left_cliff_points.append(Vector2(0, 720))
+	left_cliff_points.append(Vector2(0, 1280))
 	
-	# 右側の崖 (X: 850 ～ 1280)
-	right_cliff_points.append(Vector2(1280, 0))
-	for y in range(0, 730, 40):
-		var x_offset = rng.randf_range(850.0, 900.0)
+	# 右側の崖 (X: 640 ～ 720)
+	right_cliff_points.append(Vector2(720, 0))
+	for y in range(0, 1320, 40):
+		var x_offset = rng.randf_range(640.0, 660.0)
 		right_cliff_points.append(Vector2(x_offset, float(y)))
-	right_cliff_points.append(Vector2(1280, 720))
+	right_cliff_points.append(Vector2(720, 1280))
 	
 	queue_redraw()
 
@@ -55,10 +57,10 @@ func _draw() -> void:
 		draw_polyline(right_outline, Color("#FCFCFC"), 3.5, true)
 	
 	# 2. レーン境界線（和風の掠れ破線）
-	var lane_dividers = [570.0, 710.0]
+	var lane_dividers = [275.0, 445.0]
 	for x in lane_dividers:
-		for y in range(0, 720, 60):
-			var scroll_y = fmod(float(y) + anim_time * 200.0, 720.0)
+		for y in range(0, 1280, 60):
+			var scroll_y = fmod(float(y) + anim_time * 980.0, 1280.0)
 			var start_p = Vector2(x, scroll_y)
 			var end_p = Vector2(x, scroll_y + 30.0)
 			draw_line(start_p, end_p, Color(1.0, 1.0, 1.0, 0.35), 2.0)
